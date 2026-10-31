@@ -1,0 +1,16 @@
+# dafeiyu-qq-panel bundle patch
+#
+# 给 dsh-qq-bridge 补两样东西：
+#   1. `qq_peek` 工具 —— 主动翻「没叫醒我」的 QQ 消息
+#   2. 一张设置页「QQ 桥接面板」 —— 直接读写桥接的本机设置接口
+#
+# config:
+#   statePath      dsh-qq-bridge 的状态文件；留空 = $DSH_HOME/qq-bridge-state.json
+#   defaultLimit   默认回看条数，默认 30
+#
+- insert:
+    - id: dafeiyu-qq-panel
+      name: dafeiyu-qq-panel
+      config:
+        statePath: ''
+        defaultLimit: 30

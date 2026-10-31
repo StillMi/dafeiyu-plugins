@@ -1,0 +1,19 @@
+# 运行态与本地数据，绝不入库
+node_modules/
+*.log
+
+# 插件自己写的状态（含会话 id、聊天记录）
+wake-state.json
+wake-settings.json
+*.local.json
+
+# 本地凭据
+.credentials.yaml
+*.env
+.env*
+
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc

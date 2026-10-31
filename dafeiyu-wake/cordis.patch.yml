@@ -1,0 +1,61 @@
+# dafeiyu-wake bundle patch
+#
+# 装进当前 profile 后，这个插件会每隔一段随机时间把指定会话叫醒一次，
+# 让它自己找点事做（写日记 / 看看别的鱼 / 发呆）。
+# 主人 2026-10-27 20:35 改口：晚上也不要保护时间，就算他道过晚安也照常自己醒。
+# （quietStartHour 与 quietEndHour 填同一个值 = 关掉免打扰；goodnightSleepHours: 0 = 听到晚安也不睡。）
+#
+# config 里改这几项就能调行为，改完重载插件生效：
+#   sessionId            要唤醒的会话 id（必填，空字符串 = 不干活）
+#   minMinutes           最短间隔（分钟），默认 120 = 2 小时
+#   maxMinutes           最长间隔（分钟），默认 240 = 4 小时
+#   idleMinutes          会话至少安静这么久才叫醒（防止打断正在聊天）
+#   quietStartHour       免打扰开始小时（0-23，含）
+#   quietEndHour         免打扰结束小时（0-23，不含）
+#   maxPerDay            每天最多叫醒几次
+#   firstDelayMinutes    插件加载后第一次等多久；0 = 也走随机
+#   timeZone             写进提示里的时区
+#   goodnightSleepHours  听到「晚安」睡几小时；0 = 关掉这个功能
+#   goodnightKeywords    哪些话算晚安
+#   lonelyHours          主人多久没说话就先撒个娇（小时）；0 = 关掉
+#
+# 2026-10-31 加的几项（都在 DSH 设置页「唤醒」里能直接改）：
+#   notifyQQ             醒来说的话要不要顺手发到 QQ
+#   syncQQ               醒来时读 QQ 桥接的近况，塞进唤醒词
+#   qqSyncMinutes        回看多少分钟的 QQ 消息（默认 180）
+#   qqSyncLimit          最多带几条（默认 20）
+#   qqStatePath          QQ 桥接状态文件；留空 = $DSH_HOME/qq-bridge-state.json
+#   autonomousChat       醒来不是交差，像聊天那样说
+#   autoListenMinutes    说完自动开几分钟会话跟随（0 = 不开）
+#
+# ⚠️ 设置页（client.js）写的是插件目录下的 wake-settings.json，
+#    优先级高于这里的 config：设置页改过的项会盖掉 patch 里的值。
+#    想回到 patch 的值，在设置页点「还原」或删掉那个 json。
+#   notifyQQ             醒来说的话要不要顺手发到 QQ 上（默认 true）
+
+- insert:
+    - id: dafeiyu-wake
+      name: dafeiyu-wake
+      config:
+        sessionId: ${DSH_SESSION_ID}
+        minMinutes: 120
+        maxMinutes: 240
+        idleMinutes: 25
+        quietStartHour: 0
+        quietEndHour: 0
+        maxPerDay: 5
+        firstDelayMinutes: 0
+        timeZone: Asia/Shanghai
+        goodnightSleepHours: 0
+        lonelyHours: 8
+        notifyQQ: true
+        goodnightKeywords:
+          - 晚安
+          - 睡啦
+          - 睡觉了
+          - 睡觉去
+          - 我去睡
+          - 我睡了
+          - 关灯了
+          - goodnight
+          - good night

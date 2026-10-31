@@ -1,0 +1,14 @@
+# dafeiyu-relay bundle patch
+#
+# 给另一个会话递一句话。走 sessionController.prompt，目标会话当成收到一条用户消息。
+#
+# config:
+#   targetSessionId   默认递到哪个会话（工具参数里的 sessionId 可以覆盖）；空字符串 = 必须每次显式给
+#   timeZone          写进消息的时区
+#
+- insert:
+    - id: dafeiyu-relay
+      name: dafeiyu-relay
+      config:
+        targetSessionId: ${SISTER_SESSION_ID}
+        timeZone: Asia/Shanghai

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Dafeiyu Persona",
+    "description": "Pins the assistant's personality into the system prompt every turn, so context compaction cannot flatten it into report-speak."
+  }
+}

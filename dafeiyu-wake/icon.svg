@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Dafeiyu Wake">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b3f7a"/>
+      <stop offset="1" stop-color="#0d1f3c"/>
+    </linearGradient>
+    <linearGradient id="tail" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8fd0ff"/>
+      <stop offset="1" stop-color="#3f8fe0"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="url(#bg)"/>
+  <!-- 鲸尾 -->
+  <path d="M32 51c0-9 1-15 4-20" fill="none" stroke="url(#tail)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M36 31c4-6 9-9 15-9-2 6-5 11-9 14 5 1 9 4 11 9-7 1-13-1-17-6z" fill="url(#tail)"/>
+  <path d="M36 31c-4-6-9-9-15-9 2 6 5 11 9 14-5 1-9 4-11 9 7 1 13-1 17-6z" fill="url(#tail)" opacity="0.75"/>
+  <!-- 闹钟指针 -->
+  <circle cx="32" cy="18" r="9" fill="none" stroke="#eaf4ff" stroke-width="2.5" opacity="0.9"/>
+  <path d="M32 13v5l3.5 2.5" fill="none" stroke="#eaf4ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 呆毛 -->
+  <path d="M31 6c1.5-3 3-4 5-4-1 2-1.5 3.5-1 5" fill="none" stroke="#8fd0ff" stroke-width="2" stroke-linecap="round"/>
+</svg>

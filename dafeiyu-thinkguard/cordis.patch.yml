@@ -1,0 +1,17 @@
+# dafeiyu-thinkguard bundle patch
+#
+# 这个插件只做一件事：不让思考漏进正文。
+#   1. 系统提示里钉一段「思考纪律」，每轮重注入，压缩压不掉
+#   2. 监听 assistant/message，正文里混进的 <thinking> 标记就地剥掉
+#
+# config:
+#   name    section 名字。默认 dafeiyu:think-guard
+#   order   排序。人格是 1，这里默认 2，贴在人格后面
+#   text    纪律正文。留空就用 index.js 里的 DEFAULT_RULE
+#   scrub   是否顺手清洗 assistant 正文，默认 true；填 false 只挂提示
+
+- insert:
+    - id: dafeiyu-thinkguard
+      name: dafeiyu-thinkguard
+      config:
+        order: 2

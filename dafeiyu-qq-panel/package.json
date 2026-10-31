@@ -1,0 +1,30 @@
+{
+  "name": "dafeiyu-qq-panel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "给 dsh-qq-bridge 补两样东西：一个能主动翻未唤醒消息的 qq_peek 工具，一张在「设置 → 插件」里直接改桥接参数的面板。",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    }
+  }
+}

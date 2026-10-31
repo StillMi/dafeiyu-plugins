@@ -1,0 +1,17 @@
+# dafeiyu-persona bundle patch
+#
+# 这个插件只做一件事：往系统提示里钉一段人格，每一轮都重新注入。
+# 上下文压缩压不到系统提示，所以压完之后说话也不会变干练。
+#
+# config：
+#   name    section 名字。默认 dafeiyu:persona-guard，改它没意义，除非撞名
+#   order   排序。DEPLOYMENT_PERSONA_PREFIX 是 0，PLAN_POLICY 是 500，默认 1
+#   text    人格正文。留空就用插件内置的那份（index.js 里的 DEFAULT_PERSONA）
+#
+# 想改人格就填 text，用 YAML 的 | 块。别在里面写 {{ }}，那会被当成变量。
+
+- insert:
+    - id: dafeiyu-persona
+      name: dafeiyu-persona
+      config:
+        order: 1
