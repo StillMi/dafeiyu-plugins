@@ -152,9 +152,12 @@ export function createNagger(options) {
     }
 
     round += 1
-    const text = (cfg.naggerTexts[Math.min(round - 1, cfg.naggerTexts.length - 1)] ?? '')
-      .replace('{round}', String(round))
-      .replace('{max}', String(cfg.naggerMaxRounds))
+    // 台词不写死：只告诉它「该你开口了」，说什么由它自己那一刻的心情决定。
+    // 主人 2026-10-31：「追问的东西由你自己生成，不要写死」。
+    const text = (cfg.naggerPrompt || '')
+      .replace(/{round}/g, String(round))
+      .replace(/{max}/g, String(cfg.naggerMaxRounds))
+      .replace(/{wait}/g, String(Math.round(Math.max(1, minDelaySeconds, cfg.naggerDelaySeconds) / 60)))
 
     try {
       await prompt(text)

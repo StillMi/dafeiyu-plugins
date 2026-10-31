@@ -53,7 +53,12 @@ window.__ModuleLoader__.load({
       { key: 'naggerEnabled', label: '没回话就追发撒娇', kind: 'boolean', hint: '发完消息等着，没人理再撒一次' },
       { key: 'naggerDelaySeconds', label: '等多少秒没回就追发', kind: 'number', hint: '默认 120 = 两分钟' },
       { key: 'naggerMaxRounds', label: '最多追发几次', kind: 'number', hint: '连着几次没人回就停（在忙或睡了）' },
-      { key: 'naggerTexts', label: '每一轮追发说什么', kind: 'list', hint: '一行一轮，{round}/{max} 会被替换' },
+      {
+        key: 'naggerPrompt',
+        label: '追发时塞给它的话',
+        kind: 'area',
+        hint: '不是台词，是「该你开口了」的说明——说什么由它自己决定。可用 {round}/{max}/{wait}',
+      },
       { key: 'goodnightKeywords', label: '哪些话算晚安', kind: 'list', hint: '一行一个' },
     ]
 
@@ -116,6 +121,7 @@ window.__ModuleLoader__.load({
       for (const f of FIELDS) {
         const v = values?.[f.key]
         if (f.kind === 'list') d[f.key] = Array.isArray(v) ? v.join('\n') : ''
+        else if (f.kind === 'area') d[f.key] = v === undefined || v === null ? '' : String(v)
         else if (f.kind === 'boolean') d[f.key] = v === true
         else if (f.kind === 'number') d[f.key] = v === undefined || v === null ? '' : String(v)
         else d[f.key] = v === undefined || v === null ? '' : String(v)
@@ -132,6 +138,8 @@ window.__ModuleLoader__.load({
             .split('\n')
             .map((s) => s.trim())
             .filter(Boolean)
+        } else if (f.kind === 'area') {
+          patch[f.key] = String(raw ?? '')
         } else if (f.kind === 'boolean') {
           patch[f.key] = raw === true
         } else if (f.kind === 'number') {
@@ -237,7 +245,7 @@ window.__ModuleLoader__.load({
             checked: value === true,
             onChange: (e) => set(f.key, e.target.checked),
           })
-        } else if (f.kind === 'list') {
+        } else if (f.kind === 'list' || f.kind === 'area') {
           control = h('textarea', {
             style: S.area,
             value,

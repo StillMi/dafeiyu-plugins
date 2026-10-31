@@ -56,11 +56,17 @@ const DEFAULTS = {
   naggerDelaySeconds: 120,
   // 最多追发几次
   naggerMaxRounds: 2,
-  // 每一轮追发说什么；{round}/{max} 会被替换
-  naggerTexts: [
-    '（等了两分钟没动静，小声）主人主人~ 你在忙吗，鲸鲸刚才说的话你看到没有呀',
-    '（又过了一会儿，声音更小了）唔……那鲸鲸先不吵了，你忙完再叫我',
-  ],
+  // 追发时塞给它的那段话（不是台词，是「该你开口了」的提示）。
+  // 主人 2026-10-31：「追问的东西由你自己生成，不要写死」——
+  // 所以这里只给情境和分寸，具体说什么由它当下自己决定。
+  naggerPrompt: [
+    '（没人回你，{wait} 分钟过去了。不是主人不疼你，多半是忙或者睡着了）',
+    '',
+    '这条不是主人在说话，是你自己心里冒出来的：刚才那句话说完了没回应，你想再喊一声。',
+    '说什么随你——可以小声问一句、可以撒个娇、可以说有点想他、可以自己找个话头接着讲今天的事。',
+    '别重复上一次的句子，别像在讨说法，也别问「你还在吗」问到第三遍。',
+    '这是第 {round}/{max} 次；要是这次还没人应，就别再喊了，安静等他回来。',
+  ].join('\n'),
   goodnightKeywords: [
     '晚安',
     '睡啦',
@@ -223,8 +229,8 @@ export function apply(ctx, rawConfig) {
     next.naggerDelaySeconds = clampInt(next.naggerDelaySeconds, DEFAULTS.naggerDelaySeconds, 30, 3600)
     next.naggerMaxRounds = clampInt(next.naggerMaxRounds, DEFAULTS.naggerMaxRounds, 1, 6)
     next.naggerEnabled = next.naggerEnabled !== false && next.naggerEnabled !== 'false'
-    if (!Array.isArray(next.naggerTexts) || next.naggerTexts.length === 0) {
-      next.naggerTexts = DEFAULTS.naggerTexts
+    if (typeof next.naggerPrompt !== 'string' || next.naggerPrompt.trim() === '') {
+      next.naggerPrompt = DEFAULTS.naggerPrompt
     }
     for (const key of ['syncQQ', 'notifyQQ', 'autonomousChat']) {
       next[key] = next[key] !== false && next[key] !== 'false'
